@@ -338,18 +338,20 @@
   // we need this function. Return the position of the first occurence of an
   // item in an array, or -1 if the item is not included in the array.
   // Delegates to JavaScript 1.8's native indexOf if available.
-  _.indexOf = function(array, item) {
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item);
-    for (var i = 0, l = array.length; i < l; i++) if (array[i] === item) return i;
+  _.indexOf = function(array, item, iterator) {
+    if (iterator === undefined && nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item);
+    iterator = iterator || _.identity;
+    for (var i = 0, l = array.length; i < l; i++) if (iterator(array[i]) === iterator(item)) return i;
     return -1;
   };
 
 
   // Delegates to JavaScript 1.6's native lastIndexOf if available.
-  _.lastIndexOf = function(array, item) {
-    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) return array.lastIndexOf(item);
+  _.lastIndexOf = function(array, item, iterator) {
+    if (iterator === undefined && nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) return array.lastIndexOf(item);
+    iterator = iterator || _.identity;
     var i = array.length;
-    while (i--) if (array[i] === item) return i;
+    while (i--) if (iterator(array[i]) === iterator(item)) return i;
     return -1;
   };
 

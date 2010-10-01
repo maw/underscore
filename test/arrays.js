@@ -98,8 +98,17 @@ $(document).ready(function() {
     var numbers = [1, 2, 3];
     numbers.indexOf = null;
     equals(_.indexOf(numbers, 2), 1, 'can compute indexOf, even without the native function');
-    var result = (function(){ return _.indexOf(arguments, 2); })(1, 2, 3);
-    equals(result, 1, 'works on an arguments object');
+    var result0 = (function(){ return _.indexOf(arguments, 2); })(1, 2, 3);
+    equals(result0, 1, 'works on an arguments object');
+
+    var hashes = [{k: "one"}, {k: "two"}, {k: "three"}];
+    var k = function(v) { return v.k; };
+    equals(_.indexOf(hashes, {k: "two"}, k), 1,
+           "can compute indexOf using an iterator function")
+    var result1 = (function() {
+        return _.indexOf(arguments, {k: "two"}, k);
+    })({k: "one"}, {k: "two"}, {k: "three"});
+    equals(result1, 1, "as above, but with an arguments object")
   });
 
   test("arrays: lastIndexOf", function() {
@@ -109,6 +118,15 @@ $(document).ready(function() {
     equals(_.lastIndexOf(numbers, 0), 8, 'lastIndexOf the other element');
     var result = (function(){ return _.lastIndexOf(arguments, 1); })(1, 0, 1, 0, 0, 1, 0, 0, 0);
     equals(result, 5, 'works on an arguments object');
+    
+    var hashes = [{k: "one"}, {k: "two"}, {k: "three"}, {k: "two"}, {k: "one"}];
+    var k = function(v) { return v.k; };
+    equals(_.lastIndexOf(hashes, {k: "two"}, k), 3,
+           "can compute indexOf using an iterator function")
+    var result1 = (function() {
+        return _.lastIndexOf(arguments, {k: "two"}, k);
+    })({k: "one"}, {k: "two"}, {k: "three"}, {k: "two"}, {k: "one"});
+    equals(result1, 3, "as above, but with an arguments object")
   });
 
   test("arrays: range", function() {

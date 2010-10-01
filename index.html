@@ -588,11 +588,13 @@ _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
 </pre>
 
       <p id="indexOf">
-        <b class="header">indexOf</b><code>_.indexOf(array, value)</code>
+        <b class="header">indexOf</b><code>_.indexOf(array, value, [iterator])</code>
         <br />
         Returns the index at which <b>value</b> can be found in the <b>array</b>,
-        or <i>-1</i> if value is not present in the <b>array</b>. Uses the native
-        <b>indexOf</b> function unless it's missing.
+        or <i>-1</i> if value is not present in the <b>array</b>. In the case
+        of constituent values which can not be compared using ===, you can
+        provide an <b>iterator</b> function.  Uses the native <b>indexOf</b>
+        function unless it's missing, or if <b>iterator</b> is provided.
       </p>
       <pre>
 _.indexOf([1, 2, 3], 2);
@@ -600,11 +602,13 @@ _.indexOf([1, 2, 3], 2);
 </pre>
 
       <p id="lastIndexOf">
-        <b class="header">lastIndexOf</b><code>_.lastIndexOf(array, value)</code>
+        <b class="header">lastIndexOf</b><code>_.lastIndexOf(array, value, [iterator])</code>
         <br />
         Returns the index of the last occurrence of <b>value</b> in the <b>array</b>,
-        or <i>-1</i> if value is not present. Uses the native <b>lastIndexOf</b>
-        function if possible.
+        or <i>-1</i> if value is not present. In the case of constituent values
+        which can not be compared using ===, you can provide an <b>iterator</b>
+        function.  Uses the native <b>lastIndexOf</b> function if possible and
+        if <b>iterator</b> is not provided.
       </p>
       <pre>
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
